@@ -1,8 +1,6 @@
 <?php
 
-require_once __DIR__ . '/g2k-singleton.php';
-
-abstract class G2K_Plugin extends G2K_Singleton {
+abstract class G2K_Plugin {
 	const SLUG = '';
 	const PREFIX = '';
 	const VERSION = '';
