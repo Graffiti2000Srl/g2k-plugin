@@ -1,6 +1,7 @@
 <?php
 
 abstract class G2K_Plugin {
+	public $name = '';
 	public $slug = '';
 	public $prefix = '';
 	public $version = '';
