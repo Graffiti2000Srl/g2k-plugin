@@ -36,7 +36,7 @@ abstract class G2K_Plugin {
 	 * @param  bool   $require_once          'once' to use require_once() | 'always' to use require()
 	 * @return string
 	 */
-	public function render_template( $default_template_path = null, $variables = array(), $require_once = true ) {
+	public function render_template( $default_template_path = null, $variables = array() ) {
 		do_action( $this->prefix . '_render_template_pre', $default_template_path, $variables );
 
 		$template_path = locate_template( basename( $default_template_path ) );
@@ -49,11 +49,7 @@ abstract class G2K_Plugin {
 			extract( $variables );
 			ob_start();
 
-			if ( !$require_once ) {
-				require( $template_path );
-			} else {
-				require_once( $template_path );
-			}
+			require( $template_path );
 
 			$template_content = apply_filters( $this->prefix . '_template_content', ob_get_clean(), $default_template_path, $template_path, $variables );
 		} else {
