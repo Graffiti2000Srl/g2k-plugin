@@ -1,10 +1,9 @@
 <?php
 
 abstract class G2K_Plugin {
-	const SLUG = '';
-	const PREFIX = '';
-	const VERSION = '';
-	const REQUIRED_CAPABILITY = '';
+	public $slug = '';
+	public $prefix = '';
+	public $version = '';
 
 	/**
 	 * Activates the plugin.
@@ -37,14 +36,14 @@ abstract class G2K_Plugin {
 	 * @param  bool   $require_once          'once' to use require_once() | 'always' to use require()
 	 * @return string
 	 */
-	protected static function _render_template( $default_template_path = null, $variables = array(), $require_once = true ) {
-		do_action( static::PREFIX . '_render_template_pre', $default_template_path, $variables );
+	public function render_template( $default_template_path = null, $variables = array(), $require_once = true ) {
+		do_action( $this->prefix . '_render_template_pre', $default_template_path, $variables );
 
 		$template_path = locate_template( basename( $default_template_path ) );
 		if ( ! $template_path ) {
 			$template_path = dirname( __DIR__ ) . '/view/' . $default_template_path;
 		}
-		$template_path = apply_filters( static::PREFIX . '_template_path', $template_path );
+		$template_path = apply_filters( $this->prefix . '_template_path', $template_path );
 
 		if ( is_file( $template_path ) ) {
 			extract( $variables );
@@ -56,12 +55,12 @@ abstract class G2K_Plugin {
 				require_once( $template_path );
 			}
 
-			$template_content = apply_filters( static::PREFIX . '_template_content', ob_get_clean(), $default_template_path, $template_path, $variables );
+			$template_content = apply_filters( $this->prefix . '_template_content', ob_get_clean(), $default_template_path, $template_path, $variables );
 		} else {
 			$template_content = '';
 		}
 
-		do_action( static::PREFIX . '_render_template_post', $default_template_path, $variables, $template_path, $template_content );
+		do_action( $this->prefix . '_render_template_post', $default_template_path, $variables, $template_path, $template_content );
 		return $template_content;
 	}
 }
