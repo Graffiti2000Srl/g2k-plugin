@@ -1,18 +1,14 @@
 <?php
 
-abstract class G2K_Settings {
+require_once __DIR__ . '/g2k-module.php';
+
+/**
+ * Class G2K_Settings
+ *
+ * @property array settings
+ */
+abstract class G2K_Settings extends G2K_Module {
 	protected $_settings;
-
-	/**
-	 * @var G2K_Plugin
-	 */
-	protected $_plugin;
-
-	public function __construct(G2K_Plugin $plugin) {
-		$this->_plugin = $plugin;
-
-		$this->_register_hooks();
-	}
 
 	protected function _register_hooks() {
 		add_action('admin_menu', array($this, 'register_settings_pages'));
