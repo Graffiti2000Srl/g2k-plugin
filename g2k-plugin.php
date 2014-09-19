@@ -5,6 +5,7 @@ abstract class G2K_Plugin {
 	public $slug = '';
 	public $prefix = '';
 	public $version = '';
+	public $capability = '';
 
 	/**
 	 * Activates the plugin.
